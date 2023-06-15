@@ -1,0 +1,16 @@
+{
+    "name": "darlar57/adrespect",
+    "description": "FX calculator with NBP API to get FX rates from NBP",
+    "authors": [
+        {
+            "name": "Dariusz Larsen"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\Models\\": "app/classes/model",
+            "App\\Controller\\": "app/classes/controller",
+            "App\\": "app/classes"
+        }
+    }
+}

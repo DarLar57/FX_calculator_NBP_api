@@ -1,0 +1,58 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+body {
+    position: relative;
+    padding-bottom: 50px;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 65px;
+}
+a {
+    text-decoration: none;
+    color: white;
+}
+h3 {
+    text-shadow: 4px 4px 8px white, -4px -4px 8px white;
+    animation: blink 2s infinite;
+    margin-left: 10%;
+}
+.table-row {
+    align-items: center;
+    vertical-align: baseline;
+}
+button, input[type="text"] {
+    box-shadow: 3px 3px 8px black;  
+}
+#errorMessage {
+    animation: blink 1s infinite;
+    text-shadow: 4px 4px 8px white;
+}
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+#form_employees_container {
+    margin-top: 10px;
+    padding: 15px;
+}
+@media only screen and (max-width: 500px) {
+    #table_employees {
+        table-layout: fixed;
+        width: 100%;
+        word-wrap: break-word;
+    }
+    #table_employees_container {
+        padding: 5px!important;
+    }
+    #form_employees_container {
+        margin-top: 10px;
+        padding: 5px!important;
+    }
+}
