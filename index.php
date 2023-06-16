@@ -1,81 +1,64 @@
 <?php
 
 require __DIR__ . '/app/initializing.php'; 
-/*use App\DB;
-use App\Models\DbOperations;
-use App\Models\NbpApi;
-use App\Controller\Controller;
+require __DIR__ . '/app/templates/common/header.php'; 
+
+$currencies = $controller->getCurrencies();
 
 
-require __DIR__ . '/app/classes/DB.php'; 
-require __DIR__ . '/app/classes/model/DbOperations.php'; 
-require __DIR__ . '/app/classes/model/ExchangeRatesTable.php'; 
-require __DIR__ . '/app/classes/model/NbpApi.php'; 
-require __DIR__ . '/app/classes/controller/Controller.php'; 
-*/
-
-$colsArr = $controller->getCurrencies();
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="app/public/css/style.css" type="text/css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-    <script src="/js/script.js"></script>
-    <title>Currency converter</title>
-</head>
-<body>
-    <div class="container">
-        <h1>Currency converter</h1>
-        
-        <form method="POST" action="inc/convert.php">
+<header class="container text-center bg-primary text-white pb-3 p-2 fs-3">
+    FX converter with NBP tables (API)
+</header>
+<div id="form_container">
+    <div class="row">
+        <div class="col-md-3 me-5">
+        <form id="item_list" class="row g-3 was-validated" method="POST" action="">
             <div class="mb-3">
-                <label for="amount" class="form-label">Amount:</label>
-                <input type="number" step="any" class="form-control" id="amount" name="amount" required>
-            </div>
-            
-            <div class="mb-3">
-                <label for="sourceCurrency" class="form-label">Source currency:</label>
-                <select class="form-select" id="sourceCurrency" name="sourceCurrency" required>
-                <?php
-foreach($colsArr as $item) { ?>
+            <label class="form-label" for="amount" >Amount:</label>
+            <input type="number" step="any" class="form-control" id="amount" name="amount" pattern="([1-9]+)|([1-9][0-9]+)|([0-9]+[\.]{1}[0-9]{1,2})|([\.]{1}[0-9]{1,2})" required>
+            <label class="form-label" for="sourceCurrency">Source currency:</label>
+            <select class="form-select" id="sourceCurrency" name="sourceCurrency" required>
 
-<option type="radio" value=<?= '"' . $item . '"'; ?>><?= $item; ?></option>
+<?php foreach($currencies as $curr) { ?>
+
+            <option value= <?= json_encode($curr); ?>>
+            <?= $curr['currency'] . " (" . $curr['currency_code']. ") - (" . $curr['mid_ex_rate']. ")"; ?>
+            </option>
 
 <?php }; ?>
-                  
-                </select>
-            </div>
-            
-            <div class="mb-3">
-                <label for="targetCurrency" class="form-label">Target currency:</label>
-                <select class="form-select" id="targetCurrency" name="targetCurrency" required>
+            </select>
+            <label class="form-label" for="targetCurrency">Target currency:</label>
+            <select class="form-select" id="targetCurrency" name="targetCurrency" required>
 
-                <?php
-foreach($colsArr as $item) { ?>
+<?php foreach($currencies as $curr) { ?>
 
-<option type="radio" value=<?= '"' . $item . '"'; ?>><?= $item; ?></option>
+            <option value= <?= json_encode($curr); ?>>
+            <?= $curr['currency'] . " (" . $curr['currency_code']. ") - (" . $curr['mid_ex_rate']. ")"; ?>
+            </option>
 
 <?php }; ?>
                  
-                </select>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Convert</button>
+            </select>  
+        <button class="btn btn-primary" type="submit">Convert</button>
         </form>
-    </div>
-    <div>
-    <?php
+            </div>
+        </div>
+<?php
 
-//$controller->createExRateObj();
+//$controller->createExRateObjAndInsert();
 $controller->createExRateTable();
+//isset($_POST['submit']) ? $controller->createCurrConversionObjAndInsert() : null;
 
 ?>
+</div>
     </div>
-   </body>
+<?php
+
+require __DIR__ . '/app/templates/common/footer.php'; 
+
+?>
+
+</body>
 </html>

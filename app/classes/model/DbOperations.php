@@ -36,7 +36,7 @@ class DbOperations extends DB {
     {
         $tableName = 'exchange_rates';
 
-        $query = "SELECT * FROM $tableName";
+        $query = "SELECT DISTINCT * FROM $tableName";
     
         $stmt = parent::$dbConn->query($query);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -48,12 +48,15 @@ class DbOperations extends DB {
     {
         $tableName = 'exchange_rates';
 
-        $query = "SELECT DISTINCT currency FROM $tableName";
+        $query = "SELECT DISTINCT * 
+                    FROM $tableName
+                        ORDER BY currency ASC";
         $stmt = parent::$dbConn->query($query);
-        $colsArr = array();
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) { // Next field
-                $colsArr[] = $row['currency']; 
-            }
-        return $colsArr;
+        $currencies = array();
+        $currencies[] = ['currency' => 'polski złoty', 'currency_code' => 'PLN', 'mid_ex_rate' => 1, 'effective_date' => date("Y-m-d"), 'table_no' => 'no table exist as PLN/PLN is 1'];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $currencies[] = ['currency' => $row['currency'], 'currency_code' => $row['currency_code'], 'mid_ex_rate' => $row['mid_ex_rate'], 'effective_date' => $row['effective_date'], 'table_no' => $row['table_no']]; 
+        }
+        return $currencies;
     }
 }
