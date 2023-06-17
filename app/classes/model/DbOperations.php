@@ -44,6 +44,18 @@ class DbOperations extends DB {
         return $result;
     }
 
+    public static function readDataFromDb()
+    {
+        $tableName = 'exchange_rates';
+
+        $query = "SELECT DISTINCT * FROM $tableName";
+    
+        $stmt = parent::$dbConn->query($query);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
     public function getCurrencies(): array
     {
         $tableName = 'exchange_rates';
@@ -116,4 +128,16 @@ class DbOperations extends DB {
         
         header('Location: conversion_result.php');
     } 
+
+    public static function readFXConversionDataFromDb()
+    {
+        $tableName = 'currency_conversions';
+
+        $query = "SELECT * FROM $tableName";
+    
+        $stmt = parent::$dbConn->query($query);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
 }

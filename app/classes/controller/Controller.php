@@ -96,37 +96,48 @@ class Controller {
         $currConversionObj = new CurrencyConversion($currConversionData);
         $db_oper->insertCurrConversionDataToDb($currConversionObj);
     }
-    public static function createFXConversionTable() // TO DO
+    // table with FX conversions executed
+    public static function createFXConversionTable()
     {
         $db_oper = new DbOperations;
 
-        $ExRateDataFromDb = $db_oper->readExRateDataFromDb();
+        $FXConversionDataFromDb = $db_oper->readFXConversionDataFromDb();
   
         echo 
         '<div class="col-md-4">
             <input id="inputFilter" type="text" class="form-control mb-3" placeholder="Search for text in any column (e.g. rate, date, currency, table name)">
         </div>
-        <caption>NBP FX Exchange table A&B versus PLN</caption>
+        <caption>FX conversion using NBP FX rates</caption>
             <div class="col-xl-4 col-lg-4 col-md-8 col-sm-8 col-8 order-xl-first order-lg-first order-last order-sm-last order-md-last ">
         <table id="table_fx_converter" class="table table-striped table-hover m-3 p-2">
+        <thead>
         <tr>
-            <td>Table name</td>
-            <td>Date of Ex. Rate setting</td>
-            <td>Full currency name</td>
-            <td>Currency code</td>
+            <td>FX date</td>
+            <td>Currency (source)</td>
+            <td>Code (source)</td>
+            <td>Amount (source)</td>
+            <td>Currency (target)</td>
+            <td>Code (target)</td>
+            <td>Amount (target)</td>
             <td>Exchange rate</td>
+            <td>Table name</td>
         </tr>
+        </thead>
         <tbody id="table_report">';
 
-        foreach ($ExRateDataFromDb as $singleExRateData) {
+        foreach ($FXConversionDataFromDb as $singleFXConversionDataFromDb) {
                 
-            $exRateObj = new ExchangeRatesTable($singleExRateData);
+            $FXConversionObj = new CurrencyConversion($singleFXConversionDataFromDb);
             echo "<tr>
-                <td> {$exRateObj->getTableNo()}</td>
-                <td> {$exRateObj->getEffectiveDate()}</td>
-                <td> {$exRateObj->getCurrency()}</td>
-                <td> {$exRateObj->getCurrencyCode()}</td>
-                <td> {$exRateObj->getMidExRate()}</td>
+                <td> {$FXConversionObj->getEffectiveDate()}</td>
+                <td> {$FXConversionObj->getCurrency()}</td>
+                <td> {$FXConversionObj->getCurrencyCode()}</td>
+                <td>" . number_format($FXConversionObj->getAmount(), 2, ',', ' ') . "</td>
+                <td> {$FXConversionObj->getTargetCurrency()}</td>
+                <td> {$FXConversionObj->getTargetCurrencyCode()}</td>
+                <td>" . number_format($FXConversionObj->getTargetAmount(), 2, ',', ' ') . "</td>
+                <td> {$FXConversionObj->getMidExRate()}</td>
+                <td> {$FXConversionObj->getTableNo()}</td>
                 </tr>";
         }
         echo '</tbody></table></div>';

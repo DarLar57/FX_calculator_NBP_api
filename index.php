@@ -42,7 +42,7 @@ require __DIR__ . '/app/templates/common/header.php';
         </div>
 <?php
 
-$controller->createExRateObjAndInsert();
+//$controller->createExRateObjAndInsert();
 $controller->createExRateTable();
 
 
