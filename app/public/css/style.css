@@ -26,17 +26,20 @@ button {
 }
 label {
     text-shadow: 1px 1px 2px white;
-    color: white;
 }
 #fx-table-label{
+    font-size: x-large;
     margin-bottom: 15px;
+    color: blue
 }
 #inputFilter{
     width: 500px;
+    background-color: gray;
 }
+
 a {
     text-decoration: none;
-    color: white;
+    color: black;
 }
 h3 {
     text-shadow: 4px 4px 8px white, -4px -4px 8px white;
@@ -70,19 +73,32 @@ button {
     padding: 15px;
 }
 .table-container {
-    height: 550px; 
+    position: relative;
+    height: 70vh; 
     overflow-x: auto;
     word-wrap: break-word;
-    overflow-x: scroll;
+    overflow-y: scroll;
 }
 #table_fx_rates {
-    width: 100%;
+    width: 90%;
     word-wrap: break-word;
+}
+thead  td {
+    font-weight: 700;
 }
 #table_fx_converter tbody td {
     white-space: nowrap;
-  }
-
+}
+#NBPRatesBtn {
+    margin: 32px 0;
+}
+#sticky {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    opacity: 1;
+    background-color: #198754;
+}
 @media only screen and (max-width: 500px) {
     #table_fx_rates {
         table-layout: fixed;

@@ -33,19 +33,23 @@ class Controller {
         $ExRateDataFromDb = $db_oper->readExRateDataFromDb();
   
         echo 
-        '<div class="col-md-7 ms-3 table-container">
+        '<div class="col-md-12 table-container">
+        <div id="sticky">
         <label id="fx-table-label">NBP FX Exchange table A&B versus PLN</label>
 
-            <input id="inputFilter" type="text" class="form-control mb-3" placeholder="Search for text in any column (e.g. rate, date, currency, table name)">
-       
-        <table id="table_fx_rates" class="table table-striped table-hover m-4 p-2">
+            <input id="inputFilter" type="text" class="form-control mb-3" placeholder="Search for text in table">
+        </div>
+        <table id="table_fx_rates" class="table table-striped table-hover m-2 p-1">
+        <thead>
         <tr>
             <td>Table name</td>
-            <td>Date of Ex. Rate</td>
-            <td>Full currency name</td>
-            <td>Currency code</td>
+            <td>FX table date</td>
+            <td>Currency</td>
+            <td>Code</td>
             <td>Exchange rate</td>
         </tr>
+        </thead>
+       
         <tbody id="table_report">';
 
         foreach ($ExRateDataFromDb as $singleExRateData) {
@@ -70,6 +74,7 @@ class Controller {
         $targetCurrencyArr = unserialize($_POST['targetCurrency']);
 
         $tableNo = $sourceCurrencyArr['table_no'];
+        $targetTableNo = $targetCurrencyArr['table_no'];
         $effectiveDate = $sourceCurrencyArr['effective_date'];
         $sourceCurrency = $sourceCurrencyArr['currency'];
         $sourceCurrencyCode = $sourceCurrencyArr['currency_code'];
@@ -78,11 +83,12 @@ class Controller {
         $targetCurrency = $targetCurrencyArr['currency'];
         $targetCurrencyCode = $targetCurrencyArr['currency_code'];
         $targetMidExRate = $targetCurrencyArr['mid_ex_rate'];
-        $midExRate = $targetMidExRate / $sourceMidExRate;
+        $midExRate = round(($targetMidExRate / $sourceMidExRate),5);
         $targetAmount = $sourceAmount / $midExRate;
 
         $currConversionData = [
             'table_no' => $tableNo,
+            'target_table_no' => $targetTableNo,
             'effective_date' => $effectiveDate,
             'currency' => $sourceCurrency,
             'currency_code' => $sourceCurrencyCode,
@@ -104,15 +110,15 @@ class Controller {
         $FXConversionDataFromDb = $db_oper->readFXConversionDataFromDb();
   
         echo 
-        '<div class="col-md-4">
-            <input id="inputFilter" type="text" class="form-control mb-3" placeholder="Search for text in any column (e.g. rate, date, currency, table name)">
-        </div>
-        <caption>FX conversion using NBP FX rates</caption>
-            <div class="col-xl-4 col-lg-4 col-md-8 col-sm-8 col-8 order-xl-first order-lg-first order-last order-sm-last order-md-last ">
-        <table id="table_fx_converter" class="table table-striped table-hover m-3 p-2">
+        '<div class="col-md-11 m-2 table-container">
+            <input id="inputFilter" type="text" class="form-control mb-3" placeholder="Search for text in table">
+        
+        <label id="fx-table-label">FX conversion using NBP FX rates</label>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-7 col-7 order-xl-first order-lg-first order-last order-sm-last order-md-last ">
+        <table id="table_fx_converter" class="table table-striped table-hover m-2 p-1">
         <thead>
         <tr>
-            <td>FX date</td>
+            <td>FX table date</td>
             <td>Currency (source)</td>
             <td>Code (source)</td>
             <td>Amount (source)</td>
@@ -120,7 +126,8 @@ class Controller {
             <td>Code (target)</td>
             <td>Amount (target)</td>
             <td>Exchange rate</td>
-            <td>Table name</td>
+            <td>Table name (source)</td>
+            <td>Table name (target)</td>
         </tr>
         </thead>
         <tbody id="table_report">';
@@ -138,6 +145,7 @@ class Controller {
                 <td>" . number_format($FXConversionObj->getTargetAmount(), 2, ',', ' ') . "</td>
                 <td> {$FXConversionObj->getMidExRate()}</td>
                 <td> {$FXConversionObj->getTableNo()}</td>
+                <td> {$FXConversionObj->getTargetTableNo()}</td>
                 </tr>";
         }
         echo '</tbody></table></div>';

@@ -5,6 +5,7 @@ namespace App\Models;
 class CurrencyConversion {
 
     public $tableNo;
+    public $targetTableNo;
     public $effectiveDate;
     public $currency;
     public $currencyCode;
@@ -17,6 +18,7 @@ class CurrencyConversion {
     public function __construct($args=[])
     {
         $this->tableNo = $args['table_no'];
+        $this->targetTableNo = $args['target_table_no'];
         $this->effectiveDate = $args['effective_date'];
         $this->currency = $args['currency'];
         $this->currencyCode = $args['currency_code'];
@@ -29,6 +31,11 @@ class CurrencyConversion {
     public function getTableNo()
     {
         return $this->tableNo;
+    }
+
+    public function getTargetTableNo()
+    {
+        return $this->targetTableNo;
     }
 
     public function getEffectiveDate()

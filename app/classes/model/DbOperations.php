@@ -69,7 +69,7 @@ class DbOperations extends DB {
                     FROM $tableName
                         ORDER BY currency ASC";
         $stmt = parent::$dbConn->query($query);
-        $currencies[] = ['currency' => 'polski złoty', 'currency_code' => 'PLN', 'mid_ex_rate' => 1, 'effective_date' => date("Y-m-d"), 'table_no' => 'no table exist as PLN/PLN is 1'];
+        $currencies[] = ['currency' => 'polski złoty', 'currency_code' => 'PLN', 'mid_ex_rate' => 1, 'effective_date' => date("Y-m-d"), 'table_no' => 'n/a as PLN/PLN is 1'];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $currencies[] = ['currency' => $row['currency'], 'currency_code' => $row['currency_code'], 'mid_ex_rate' => $row['mid_ex_rate'], 'effective_date' => $row['effective_date'], 'table_no' => $row['table_no']]; 
         }
@@ -83,6 +83,7 @@ class DbOperations extends DB {
         $query = "INSERT INTO
             $tableName (
                 table_no,
+                target_table_no,
                 effective_date,
                 currency,
                 currency_code,
@@ -93,6 +94,7 @@ class DbOperations extends DB {
                 target_amount)
                 VALUES (
                     :table_no,
+                    :target_table_no,
                     :effective_date,
                     :currency,
                     :currency_code,
@@ -105,6 +107,7 @@ class DbOperations extends DB {
         $stmt = parent::$dbConn->prepare($query);
     
         $tableNo = $currConversionObj->getTableNo();
+        $targetTableNo = $currConversionObj->getTargetTableNo();
         $effectiveDate = $currConversionObj->getEffectiveDate();
         $currency = $currConversionObj->getCurrency();
         $currencyCode = $currConversionObj->getCurrencyCode();
@@ -116,6 +119,7 @@ class DbOperations extends DB {
    
         $stmt->execute([
             'table_no' => $tableNo,
+            'target_table_no' => $targetTableNo,
             'effective_date' => $effectiveDate,
             'currency' => $currency,
             'currency_code' => $currencyCode,

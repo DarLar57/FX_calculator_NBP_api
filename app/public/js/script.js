@@ -8,78 +8,53 @@ $(document).ready(function(){
   });
 });
 
-function getLastDigit(number) {
-  return number % 10;
+//check if two Currency pair is not the same
+function selectedTwoDifferentCurrencies() {
+  var sourceCurr = document.getElementById("sourceCurrency");
+  var targetCurr = document.getElementById("targetCurrency");
+  return (sourceCurr.value != targetCurr.value)
 }
 
-//check if a pesel is valid number
-function validatePesel(pesel) {
-    // Extract the individual digits from the PESEL
-    var digits = pesel.split('').map(Number);
-    
-    var controlSum = digits[0] * 1;
-    controlSum += (digits[1] * 3) > 9 ? getLastDigit(digits[1] * 3) : (digits[1] * 3);
-    controlSum += (digits[2] * 7) > 9 ? getLastDigit(digits[2] * 7) : (digits[2] * 7);
-    controlSum += (digits[3] * 9) > 9 ? getLastDigit(digits[3] * 9) : (digits[3] * 9);
-    controlSum += digits[4] * 1;
-    controlSum += (digits[5] * 3) > 9 ? getLastDigit(digits[5] * 3) : (digits[5] * 3); 
-    controlSum += (digits[6] * 7) > 9 ? getLastDigit(digits[6] * 7) : (digits[6] * 7); 
-    controlSum += (digits[7] * 9) > 9 ? getLastDigit(digits[7] * 9) : (digits[7] * 9);
-    controlSum += (digits[8] * 1); 
-    controlSum += (digits[9] * 3) > 9 ? getLastDigit(digits[9] * 3) : (digits[9] * 3);
+//validate currency pair
+function validateCurrencySelect() {
+  
+  var sourceCurr = document.getElementById("sourceCurrency");
+  var targetCurr = document.getElementById("targetCurrency");
+  
 
-    controlSum = 10 - getLastDigit(controlSum);
-
-    // Compare the calculated control sum with the last digit of the PESEL
-    return (controlSum == digits[10]);
-}
-
-//display if pesel is / is not valid
-function validatePeselAndDisplay() {
-    var peselInput = document.getElementById('pesel');
-    var pesel = peselInput.value;
-    var peselIsValid = validatePesel(pesel);
-    
-    var validationLabel = document.getElementById('PeselLabel');
-    if (peselIsValid) {
-        validationLabel.textContent = 'PESEL is valid.';
-        validationLabel.style.color = 'green';
+    if (selectedTwoDifferentCurrencies()) {
+        sourceCurrLabel.textContent = 'Currency (source) & rate vs. PLN:';
+        sourceCurrLabel.style.color = 'black';var sourceCurrLabel = document.getElementById("labelSourceCurrency");
+  var targetCurrLabel = document.getElementById("labelTargetCurrency");
+        targetCurrLabel.textContent = 'Currency (target) & rate vs. PLN:';
+        targetCurrLabel.style.color = 'black';
     } else {
-        validationLabel.textContent = 'PESEL is invalid.';
-        validationLabel.style.color = 'red';
+        sourceCurrLabel.textContent = 'Currency pair should not be the same';
+        sourceCurrLabel.style.color = 'red';
+        sourceCurr.style.backgroundColor = "red";
+        targetCurrLabel.textContent = 'Currency pair should not be the same';
+        targetCurrLabel.style.color = 'red';
+        targetCurr.style.backgroundColor = "red";
     }
 }
-
-$(document).ready(function(){
-  // Get the form
-  const form = document.getElementById('item_list');
-  // Add ev. listener to the form
-  form.addEventListener('submit', function(event) {
-    // Check radio button selection
-    if (!isRadioButtonSelected()) {
-      event.preventDefault(); // Prevent submission
-    }
-    });
-  });
-  // Check radio button selection
-function isRadioButtonSelected() {
-  var formRadio = document.querySelectorAll('form input[type="radio"]');
-    for (let i = 0; i < formRadio.length; i++) {
-      if (formRadio[i].checked) {
-        return true;
-      }
-    }
-    return false;
-  }
 
 // For new / updated employee to prevent form submit if pasel invalid
 $(document).ready(function() {
-  $('#new_employee_form, #modify_employee_form').submit(function(event) {
-    var peselInput = document.getElementById('pesel');
-    var pesel = peselInput.value;
-    if (!validatePesel(pesel)) {
+  $('#formConvertFX').submit(function(event) {
+    if (!selectedTwoDifferentCurrencies()) {
       event.preventDefault();
-    }
+      var sourceCurr = document.getElementById("sourceCurrency");
+      var targetCurr = document.getElementById("targetCurrency");
+      var sourceCurrLabel = document.getElementById("labelSourceCurrency");
+      var targetCurrLabel = document.getElementById("labelTargetCurrency");
+      sourceCurr.style.backgroundColor = "red";
+      targetCurr.style.backgroundColor = "red";
+      targetCurrLabel.textContent = 'Currency pair should not be the same';
+      targetCurrLabel.style.color = 'red';
+      } else {
+          sourceCurr.style.backgroundColor = "gray";
+          targetCurr.style.backgroundColor = "gray";
+      }
   });
 });
 /*
@@ -88,3 +63,37 @@ $(document).ready(function() {
       $(this).trigger("reset");
     });
   });*/
+// not to allow improper inserting of Currency Pairs
+/*function check_currency() {
+if (
+    document.getElementById("sourceCurrency").value ==
+    document.getElementById("targetCurrency").value
+  ) 
+    {document.getElementById("sourceCurrency").style.borderColor = "rgb(255,100,0)";
+    document.getElementById("targetCurrency").style.borderColor = "rgb(255,100,0)";}
+    else {
+    document.getElementById("sourceCurrency").style.borderColor = "rgb(0,255,0,0.5)";
+    document.getElementById("targetCurrency").style.borderColor = "rgb(0,255,0,0.5)";
+    }
+}*/
+/*
+var form = document.getElementById("formConvertFX");
+form.addEventListener("submit", function(event) {
+  event.preventDefault(); // Prevent form submission
+
+  var sourceCurr = document.getElementById("sourceCurrency");
+  var targetCurr = document.getElementById("targetCurrency");
+  var sourceCurrLabel = document.getElementById("labelSourceCurrency");
+  var targetCurrLabel = document.getElementById("labelTargetCurrency");
+
+  if (sourceCurr.value == targetCurr.value) {
+    sourceCurr.style.backgroundColor = "red";
+    targetCurr.style.backgroundColor = "red";
+    sourceCurrLabel.innerHTML += '<span class="error-label"> Values can\'t be the same</span>';
+    targetCurrLabel.innerHTML += '<span class="error-label"> Values can\'t be the same</span>';
+    return;
+  }
+
+  // Validation passed, submit the form
+  form.submit();
+});*/

@@ -5,16 +5,15 @@ require __DIR__ . '/app/templates/common/header.php';
 
 ?>
 
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-8">
-      <table class="table table-bordered">
+    <div class="row justify-content-center m-1">
+      
 <?= $controller->createFXConversionTable(); ?>
-      </table>
-    </div>
-  </div>
-</div>
 
+    </div>
+</div>
+<div class="col-md-1 m-4">
+    <button class="btn btn-warning" id="submit" name="submit" type="submit" ><a href=\index.php>Converter</button>
+</div>
 <?php
 
 require __DIR__ . '/app/templates/common/footer.php'; 
