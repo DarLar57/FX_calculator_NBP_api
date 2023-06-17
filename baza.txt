@@ -1,0 +1,9 @@
+	1	id Podstawowy	int(11)			Nie	Brak		AUTO_INCREMENT	Zmień Zmień	Usuń Usuń	
+	2	effective_date	date			Nie	Brak			Zmień Zmień	Usuń Usuń	
+	3	currency	varchar(255)	utf8mb4_general_ci		Nie	Brak			Zmień Zmień	Usuń Usuń	
+	4	currency_code	varchar(255)	utf8mb4_general_ci		Nie	Brak			Zmień Zmień	Usuń Usuń	
+	5	target_currency	varchar(255)	utf8mb4_general_ci		Nie	Brak			Zmień Zmień	Usuń Usuń	
+	6	target_currency_code	varchar(255)	utf8mb4_general_ci		Nie	Brak			Zmień Zmień	Usuń Usuń	
+	7	amount	decimal(16,2)			Nie	Brak			Zmień Zmień	Usuń Usuń	
+	8	target_amount	decimal(16,2)			Nie	Brak			Zmień Zmień	Usuń Usuń	
+	9	mid_ex_rate	float(16,2)			Nie	Brak			Zmień Zmień	Usuń Usuń	

@@ -82,3 +82,9 @@ $(document).ready(function() {
     }
   });
 });
+/*
+$(document).ready(function() {
+    $("#formConvertFX").on("submit", function() {
+      $(this).trigger("reset");
+    });
+  });*/

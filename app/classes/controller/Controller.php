@@ -26,7 +26,7 @@ class Controller {
         }
     }
 
-    public static function createExRateTable()
+    public function createExRateTable()
     {
         $db_oper = new DbOperations;
 
@@ -61,30 +61,40 @@ class Controller {
         }
         echo '</tbody></table>';
     }
-
-    public static function createCurrConversionObjAndInsert()
+    
+    public function createCurrConversionObjAndInsert()
     {
         $db_oper = new DbOperations;
-        
-        $tableNo = $args['table_no'];
-        $effectiveDate = $args['effective_date'];
-        $currency = $args['currency'];
-        $currencyCode = $args['currency_code'];
-        $midExRate = $args['mid_ex_rate'];
-        $amount = $args['amount'];
-        $targetCurrency = $args['target_currency'];
-        $targetCurrencyCode = $args['target_currency_code'];
-        $targetAmount = $args['target_amount'];
 
-        $_POST['amount'];
-        $_POST['sourceCurrency'];
-        $_POST['targetCurrency'];
+        $sourceCurrencyArr = unserialize($_POST['sourceCurrency']);
+        $targetCurrencyArr = unserialize($_POST['targetCurrency']);
 
-        $currConversionData = [];
-                
+        $tableNo = $sourceCurrencyArr['table_no'];
+        $effectiveDate = $sourceCurrencyArr['effective_date'];
+        $sourceCurrency = $sourceCurrencyArr['currency'];
+        $sourceCurrencyCode = $sourceCurrencyArr['currency_code'];
+        $sourceMidExRate = $sourceCurrencyArr['mid_ex_rate'];
+        $sourceAmount = $_POST['amount'];
+        $targetCurrency = $targetCurrencyArr['currency'];
+        $targetCurrencyCode = $targetCurrencyArr['currency_code'];
+        $targetMidExRate = $targetCurrencyArr['mid_ex_rate'];
+        $midExRate = $targetMidExRate / $sourceMidExRate;
+        $targetAmount = $sourceAmount / $midExRate;
+
+        $currConversionData = [
+            'table_no' => $tableNo,
+            'effective_date' => $effectiveDate,
+            'currency' => $sourceCurrency,
+            'currency_code' => $sourceCurrencyCode,
+            'mid_ex_rate' => $midExRate,
+            'amount' => $sourceAmount,
+            'target_currency' => $targetCurrency,
+            'target_currency_code' => $targetCurrencyCode,
+            'target_amount' => $targetAmount
+        ];
+      
         $currConversionObj = new CurrencyConversion($currConversionData);
-        $db_oper->insertExRateDataToDb($currConversionObj);
-        
+        $db_oper->insertCurrConversionDataToDb($currConversionObj);
     }
     public static function createFXConversionTable() // TO DO
     {
