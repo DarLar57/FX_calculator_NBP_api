@@ -11,7 +11,7 @@ class DB
     
     public function __construct() 
     {
-        // getting db credentials from config.ini
+        // get db credentials from config.ini
         $dbCredentials = $this->getDbCredentials(__DIR__ . '/../db/config.ini');
         
         try {
@@ -24,7 +24,7 @@ class DB
             die ('Connection with the database failed ! Check your credentials!');
         }
     }
-
+    // get db credentials from ini file
     private function getDbCredentials($file): array {
         if(file_exists($file)) {
             $configFile = parse_ini_file($file); 

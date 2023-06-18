@@ -8,4 +8,5 @@ $controller = new Controller();
 
 $currencies = $controller->getCurrencies();
 
+
 isset($_POST['submit']) ? $controller->createCurrConversionObjAndInsert() : null;

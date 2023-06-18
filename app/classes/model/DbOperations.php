@@ -5,9 +5,10 @@ namespace App\Models;
 use \App\DB;
 use PDO;
 
-class DbOperations extends DB {
-
-    public function insertExRateDataToDb($exRateObj)
+class DbOperations extends DB
+{
+    // insert ExchangeRatesTable obj. to db 'exchange_rates' table
+    public function insertExRateDataToDb($exRateObj): void
     {
         $tableName = 'exchange_rates';
     
@@ -16,23 +17,18 @@ class DbOperations extends DB {
                 VALUES (:table_no, :effective_date, :currency, :currency_code, :mid_ex_rate)";
     
         $stmt = parent::$dbConn->prepare($query);
-    
-        $tableNo = $exRateObj->getTableNo();
-        $effectiveDate = $exRateObj->getEffectiveDate();
-        $currency = $exRateObj->getCurrency();
-        $currencyCode = $exRateObj->getCurrencyCode();
-        $midExRate = $exRateObj->getMidExRate();
-        
+            
         $stmt->execute([
-            'table_no' => $tableNo,
-            'effective_date' => $effectiveDate,
-            'currency' => $currency,
-            'currency_code' => $currencyCode,
-            'mid_ex_rate' => $midExRate
+            'table_no' => $exRateObj->getTableNo(),
+            'effective_date' => $exRateObj->getEffectiveDate(),
+            'currency' => $exRateObj->getCurrency(),
+            'currency_code' => $exRateObj->getCurrencyCode(),
+            'mid_ex_rate' => $exRateObj->getMidExRate()
         ]);
     }
 
-    public static function readExRateDataFromDb()
+    // read all data from db 'exchange_rates' table
+    public function readExRateDataFromDb(): array
     {
         $tableName = 'exchange_rates';
 
@@ -44,39 +40,47 @@ class DbOperations extends DB {
         return $result;
     }
 
-    public static function readDataFromDb()
-    {
-        $tableName = 'exchange_rates';
-
-        $query = "SELECT DISTINCT * FROM $tableName";
-    
-        $stmt = parent::$dbConn->query($query);
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $result;
-    }
-
+    // read distinct data from db 'exchange_rates' table to use for
+    // dynamic selection in the form
     public function getCurrencies(): array
     {
         $tableName = 'exchange_rates';
 
         $query = "SELECT DISTINCT 
-        currency,
-        currency_code,
-        mid_ex_rate,
-        effective_date,
-        table_no
-                    FROM $tableName
-                        ORDER BY currency ASC";
+            currency,
+            currency_code,
+            mid_ex_rate,
+            effective_date,
+            table_no
+                FROM $tableName
+                    ORDER BY currency ASC";
+
         $stmt = parent::$dbConn->query($query);
-        $currencies[] = ['currency' => 'polski złoty', 'currency_code' => 'PLN', 'mid_ex_rate' => 1, 'effective_date' => date("Y-m-d"), 'table_no' => 'n/a as PLN/PLN is 1'];
+
+        // array to retrive all relevant data in the selection form plus PLN
+        // data that are not included in NBP table
+
+        $currencies[] = [
+            'currency' => 'polski złoty',
+            'currency_code' => 'PLN',
+            'mid_ex_rate' => 1,
+            'effective_date' => date("Y-m-d"),
+            'table_no' => 'n/a as PLN/PLN is 1'
+        ];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $currencies[] = ['currency' => $row['currency'], 'currency_code' => $row['currency_code'], 'mid_ex_rate' => $row['mid_ex_rate'], 'effective_date' => $row['effective_date'], 'table_no' => $row['table_no']]; 
+            $currencies[] = [
+                'currency' => $row['currency'],
+                'currency_code' => $row['currency_code'],
+                'mid_ex_rate' => $row['mid_ex_rate'],
+                'effective_date' => $row['effective_date'],
+                'table_no' => $row['table_no']
+            ]; 
         }
         return $currencies;
     }
 
-    public function insertCurrConversionDataToDb($currConversionObj)
+    // insert CurrencyConversion obj. to db 'currency_conversions' table
+    public function insertCurrConversionDataToDb($currConversionObj): void
     {
         $tableName = 'currency_conversions';
     
@@ -92,48 +96,38 @@ class DbOperations extends DB {
                 target_currency,
                 target_currency_code,
                 target_amount)
-                VALUES (
-                    :table_no,
-                    :target_table_no,
-                    :effective_date,
-                    :currency,
-                    :currency_code,
-                    :mid_ex_rate,
-                    :amount,
-                    :target_currency,
-                    :target_currency_code,
-                    :target_amount)";
+                    VALUES (
+                        :table_no,
+                        :target_table_no,
+                        :effective_date,
+                        :currency,
+                        :currency_code,
+                        :mid_ex_rate,
+                        :amount,
+                        :target_currency,
+                        :target_currency_code,
+                        :target_amount)";
     
         $stmt = parent::$dbConn->prepare($query);
     
-        $tableNo = $currConversionObj->getTableNo();
-        $targetTableNo = $currConversionObj->getTargetTableNo();
-        $effectiveDate = $currConversionObj->getEffectiveDate();
-        $currency = $currConversionObj->getCurrency();
-        $currencyCode = $currConversionObj->getCurrencyCode();
-        $midExRate = $currConversionObj->getMidExRate();
-        $amount = $currConversionObj->getAmount();
-        $targetCurrency = $currConversionObj->getTargetCurrency();
-        $targetCurrencyCode = $currConversionObj->getTargetCurrencyCode();
-        $targetAmount = $currConversionObj->getTargetAmount();
-   
         $stmt->execute([
-            'table_no' => $tableNo,
-            'target_table_no' => $targetTableNo,
-            'effective_date' => $effectiveDate,
-            'currency' => $currency,
-            'currency_code' => $currencyCode,
-            'mid_ex_rate' => $midExRate,
-            'amount' => $amount,
-            'target_currency' => $targetCurrency,
-            'target_currency_code' => $targetCurrencyCode,
-            'target_amount' => $targetAmount
+            'table_no' => $currConversionObj->getTableNo(),
+            'target_table_no' => $currConversionObj->getTargetTableNo(),
+            'effective_date' => $currConversionObj->getEffectiveDate(),
+            'currency' => $currConversionObj->getCurrency(),
+            'currency_code' => $currConversionObj->getCurrencyCode(),
+            'mid_ex_rate' => $currConversionObj->getMidExRate(),
+            'amount' => $currConversionObj->getAmount(),
+            'target_currency' => $currConversionObj->getTargetCurrency(),
+            'target_currency_code' => $currConversionObj->getTargetCurrencyCode(),
+            'target_amount' => $currConversionObj->getTargetAmount()
         ]);
-        
+        // redirect to the site with all conversion results
         header('Location: conversion_result.php');
     } 
 
-    public static function readFXConversionDataFromDb()
+    // read all data from db 'currency_conversions' table
+    public function readFXConversionDataFromDb(): array
     {
         $tableName = 'currency_conversions';
 

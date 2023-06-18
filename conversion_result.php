@@ -1,7 +1,7 @@
 <?php
 
 require __DIR__ . '/app/initializing.php'; 
-require __DIR__ . '/app/templates/common/header.php'; 
+require __DIR__ . '/app/view/header.php'; 
 
 ?>
 
@@ -16,7 +16,7 @@ require __DIR__ . '/app/templates/common/header.php';
 </div>
 <?php
 
-require __DIR__ . '/app/templates/common/footer.php'; 
+require __DIR__ . '/app/view/footer.php'; 
 
 ?>
 
