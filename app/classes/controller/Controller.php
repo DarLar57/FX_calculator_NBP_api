@@ -34,12 +34,14 @@ class Controller {
         $db_oper = new DbOperations;
 
         $sourceCurrencyArr = unserialize($_POST['sourceCurrency']);
-        $targetCurrencyArr = unserialize($_POST['targetCurrency']);
-
         $sourceMidExRate = $sourceCurrencyArr['mid_ex_rate'];
         $sourceAmount = $_POST['amount'];
+        
+        $targetCurrencyArr = unserialize($_POST['targetCurrency']);
         $targetMidExRate = $targetCurrencyArr['mid_ex_rate'];
-        $midExRate = round(($targetMidExRate / $sourceMidExRate),5);
+        
+        $midExRate = round(($targetMidExRate / $sourceMidExRate), 5);
+        
         $targetAmount = $sourceAmount / $midExRate;
 
         $currConversionData = [

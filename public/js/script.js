@@ -10,9 +10,9 @@ $(document).ready(function(){
 
 //check if two Currency pair is not the same
 function selectedTwoDifferentCurrencies() {
-  var sourceCurr = document.getElementById("sourceCurrency");
-  var targetCurr = document.getElementById("targetCurrency");
-  return (sourceCurr.value != targetCurr.value)
+    var sourceCurr = document.getElementById("sourceCurrency");
+    var targetCurr = document.getElementById("targetCurrency");
+    return (sourceCurr.value != targetCurr.value)
 }
 
 //validate currency pair
@@ -20,19 +20,19 @@ function validateCurrencySelect() {
   
   var sourceCurr = document.getElementById("sourceCurrency");
   var targetCurr = document.getElementById("targetCurrency");
-  
+  var sourceCurrLabel = document.getElementById("labelSourceCurrency");
+  var targetCurrLabel = document.getElementById("labelTargetCurrency");
 
     if (selectedTwoDifferentCurrencies()) {
         sourceCurrLabel.textContent = 'Currency (source) & rate vs. PLN:';
-        sourceCurrLabel.style.color = 'black';var sourceCurrLabel = document.getElementById("labelSourceCurrency");
-  var targetCurrLabel = document.getElementById("labelTargetCurrency");
+        sourceCurrLabel.style.color = 'black';
         targetCurrLabel.textContent = 'Currency (target) & rate vs. PLN:';
         targetCurrLabel.style.color = 'black';
     } else {
-        sourceCurrLabel.textContent = 'Currency pair should not be the same';
+      sourceCurrLabel.innerHTML = '<span class="invalid">Currency pair should not be the same</span>';
         sourceCurrLabel.style.color = 'red';
         sourceCurr.style.backgroundColor = "red";
-        targetCurrLabel.textContent = 'Currency pair should not be the same';
+        targetCurrLabel.innerHTML = '<span class="invalid">Currency pair should not be the same</span>';
         targetCurrLabel.style.color = 'red';
         targetCurr.style.backgroundColor = "red";
     }
@@ -49,7 +49,9 @@ $(document).ready(function() {
       var targetCurrLabel = document.getElementById("labelTargetCurrency");
       sourceCurr.style.backgroundColor = "red";
       targetCurr.style.backgroundColor = "red";
-      targetCurrLabel.textContent = 'Currency pair should not be the same';
+      sourceCurrLabel.innerHTML = '<span class="invalid">Currency pair should not be the same</span>';
+      targetCurrLabel.innerHTML = '<span class="invalid">Currency pair should not be the same</span>';
+      targetCurrLabel.style.color = 'red';
       targetCurrLabel.style.color = 'red';
       } else {
           sourceCurr.style.backgroundColor = "gray";
@@ -57,43 +59,3 @@ $(document).ready(function() {
       }
   });
 });
-/*
-$(document).ready(function() {
-    $("#formConvertFX").on("submit", function() {
-      $(this).trigger("reset");
-    });
-  });*/
-// not to allow improper inserting of Currency Pairs
-/*function check_currency() {
-if (
-    document.getElementById("sourceCurrency").value ==
-    document.getElementById("targetCurrency").value
-  ) 
-    {document.getElementById("sourceCurrency").style.borderColor = "rgb(255,100,0)";
-    document.getElementById("targetCurrency").style.borderColor = "rgb(255,100,0)";}
-    else {
-    document.getElementById("sourceCurrency").style.borderColor = "rgb(0,255,0,0.5)";
-    document.getElementById("targetCurrency").style.borderColor = "rgb(0,255,0,0.5)";
-    }
-}*/
-/*
-var form = document.getElementById("formConvertFX");
-form.addEventListener("submit", function(event) {
-  event.preventDefault(); // Prevent form submission
-
-  var sourceCurr = document.getElementById("sourceCurrency");
-  var targetCurr = document.getElementById("targetCurrency");
-  var sourceCurrLabel = document.getElementById("labelSourceCurrency");
-  var targetCurrLabel = document.getElementById("labelTargetCurrency");
-
-  if (sourceCurr.value == targetCurr.value) {
-    sourceCurr.style.backgroundColor = "red";
-    targetCurr.style.backgroundColor = "red";
-    sourceCurrLabel.innerHTML += '<span class="error-label"> Values can\'t be the same</span>';
-    targetCurrLabel.innerHTML += '<span class="error-label"> Values can\'t be the same</span>';
-    return;
-  }
-
-  // Validation passed, submit the form
-  form.submit();
-});*/

@@ -99,6 +99,10 @@ thead  td {
     opacity: 1;
     background-color: #198754;
 }
+.ivalid {
+    color: red;
+    font-weight: 700;
+}
 @media only screen and (max-width: 500px) {
     #table_fx_rates {
         table-layout: fixed;

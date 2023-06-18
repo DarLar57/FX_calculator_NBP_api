@@ -14,7 +14,7 @@ require __DIR__ . '/../app/view/header.php';
             <label class="form-label" for="amount" >Amount (source):</label>
             <input type="text" class="form-control" id="amount" name="amount" value="<?= $_POST['amount'] ?? ''; ?>" required pattern="^\d+(.\d{1,2})?$" >
             <label id="labelSourceCurrency" for="sourceCurrency">Currency (source) & rate vs. PLN:</label>
-            <select class="form-select" id="sourceCurrency" name="sourceCurrency"  onchange="validateCurrencySelect()" onclick="validateCurrencySelect()" required>
+            <select class="form-select" id="sourceCurrency" name="sourceCurrency"  onchange="validateCurrencySelect()" oninput="validateCurrencySelect()" required>
 
 <?php foreach($currencies as $curr) { ?>
 
@@ -25,7 +25,7 @@ require __DIR__ . '/../app/view/header.php';
 <?php }; ?>
             </select>
             <label id="labelTargetCurrency" for="targetCurrency">Currency (target) & rate vs. PLN:</label>
-            <select class="form-select" id="targetCurrency" name="targetCurrency"  onchange="validateCurrencySelect()" onclick="validateCurrencySelect()" required>
+            <select class="form-select" id="targetCurrency" name="targetCurrency"  onchange="validateCurrencySelect()" oninput="validateCurrencySelect()" required>
 
 <?php foreach($currencies as $curr) { ?>
 
