@@ -58,9 +58,10 @@ button {
     margin-top: 20px;
     margin-left: 20px;
 }
-#errorMessage {
+.errorMessage {
     animation: blink 1s infinite;
     text-shadow: 4px 4px 8px white;
+    color: red;
 }
 @keyframes blink {
     0% { opacity: 1; }
@@ -99,7 +100,7 @@ thead  td {
     opacity: 1;
     background-color: #198754;
 }
-.ivalid {
+.invalid {
     color: red;
     font-weight: 700;
 }

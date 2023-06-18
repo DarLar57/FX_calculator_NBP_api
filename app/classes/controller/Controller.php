@@ -6,6 +6,7 @@ use App\Models\DbOperations;
 use App\Models\Functionality\ExchangeRatesTable;
 use App\Models\Functionality\CurrencyConversion;
 use App\Models\NbpApi;
+use App\Models\Validate;
 use App\View\Components;
 
 class Controller {
@@ -36,6 +37,7 @@ class Controller {
         $sourceCurrencyArr = unserialize($_POST['sourceCurrency']);
         $sourceMidExRate = $sourceCurrencyArr['mid_ex_rate'];
         $sourceAmount = $_POST['amount'];
+        $sourceAmount = str_replace(',', '.', $sourceAmount);
         
         $targetCurrencyArr = unserialize($_POST['targetCurrency']);
         $targetMidExRate = $targetCurrencyArr['mid_ex_rate'];
@@ -93,7 +95,10 @@ class Controller {
         $currencies = (new DbOperations)->getCurrencies();
         return $currencies;
     }
+    function validate($amount): ?string
+    {
+        return (new Validate)->validateInput($amount);
+    }
 }
-
 
 

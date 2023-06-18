@@ -9,10 +9,10 @@ require __DIR__ . '/../app/view/header.php';
 
     <div class="row ms-2">
         <div class="col-md-3 me-4">
-        <form class="row g-3 was-validated" id="formConvertFX" method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
+        <form class="row g-3 " id="formConvertFX" method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <div class="mb-3">
-            <label class="form-label" for="amount" >Amount (source):</label>
-            <input type="text" class="form-control" id="amount" name="amount" value="<?= $_POST['amount'] ?? ''; ?>" required pattern="^\d+(.\d{1,2})?$" >
+            <label class="form-label" for="amount" >Amount (source): <?= $errs; ?></label>
+            <input type="text" class="form-control" id="amount" name="amount" value="<?= $_POST['amount'] ?? ''; ?>" onchange="validateCurrencySelect()" oninput="validateCurrencySelect()" required pattern="^\d+(.\d{1,2})?$" >
             <label id="labelSourceCurrency" for="sourceCurrency">Currency (source) & rate vs. PLN:</label>
             <select class="form-select" id="sourceCurrency" name="sourceCurrency"  onchange="validateCurrencySelect()" oninput="validateCurrencySelect()" required>
 
@@ -52,6 +52,7 @@ require __DIR__ . '/../app/view/header.php';
         <form id="NBPRatesForm" method="POST">
         <button class="btn btn-primary" id="NBPRatesBtn" name="NBPRatesBtn" for="NBPRatesForm" onclick="">Get NBP FX rates</button>
         </form>
+
         </div>
 <?php
 

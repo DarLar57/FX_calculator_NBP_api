@@ -8,5 +8,9 @@ $controller = new Controller();
 
 $currencies = $controller->getCurrencies();
 
+$errs = "";
 
-isset($_POST['submit']) ? $controller->createCurrConversionObjAndInsert() : null;
+// once FX conversion is submitted, CurrencyConversion class obj. is created
+// and table with FX deals is listed
+isset($_POST['submit']) && empty($errs = $controller->validate($_POST['amount'])) ?
+    $controller->createCurrConversionObjAndInsert() : null;
