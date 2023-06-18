@@ -1,7 +1,7 @@
 <?php
 
-require __DIR__ . '/app/initializing.php'; 
-require __DIR__ . '/app/view/header.php'; 
+require __DIR__ . '/../app/initializing.php'; 
+require __DIR__ . '/../app/view/header.php'; 
 
 ?>
 
@@ -37,7 +37,7 @@ require __DIR__ . '/app/view/header.php';
                  
             </select>  
         <button class="btn btn-warning" for="formConvertFX" id="submit" name="submit" type="submit" >Convert</button>
-        <button class="btn btn-info" id="" name="" type="" ><a href=\conversion_result.php>Executed FX</button></a>
+        <button class="btn btn-info" id="" name="" type="" ><a href=conversion_result.php>Executed FX</button></a>
 
         </form>
 
@@ -64,7 +64,7 @@ $controller->createExRateTable();
     </div></div>
 <?php
 
-require __DIR__ . '/app/view/footer.php'; 
+require __DIR__ . '/../app/view/footer.php'; 
 
 ?>
 
