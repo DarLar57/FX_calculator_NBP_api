@@ -17,9 +17,11 @@ isset($_POST['submit']) && empty($errs = $controller->validateAmount($_POST['amo
 // 'Get NBP FX rates' btn is clicked ? NBP API fn is called and FX tables are input in db
 if (isset($_POST['NBPRatesBtn'])) {
     $controller->createCurrExRateObjAndInsert();
+    header('Location: index.php');
 }
 
 // submit btn to delete all NBP FX rates' from db
 if (isset($_POST['NBPRatesBtnDel'])) {
     $controller->deleteCurrExRateFromDb();
+    header('Location: index.php');
 }
