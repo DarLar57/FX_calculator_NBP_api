@@ -9,7 +9,7 @@ class Validate
     // on top of FE validation, BE checks if amount is empty or not a number
     // and provides with relevant message (it would be seen only in case
     // FE failed or hacked
-    public function validateInput($amount): ?string
+    public function validateAmount($amount): ?string
     {
         $err = "";
         
@@ -42,7 +42,9 @@ class Validate
         }
         return $display;
     }
-    public function isCurrExRateInDb($exRateObj) 
+
+    // validate if any NBP ex. rate is already in db to avoid double insert
+    public function isCurrExRateInDb($exRateObj): bool
     {
         $db_oper = new DbOperations;
         $isExRateDataInDb = $db_oper->readSingleCurrExRateInDb($exRateObj);

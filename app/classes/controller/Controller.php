@@ -25,8 +25,7 @@ class Controller {
             //create CurrencyExchangeRate obj.
             $exRateObj = new CurrencyExchangeRate($singleExRateData);
         
-            //TEST
-
+            // validate all NBP ex. rates before input in db to avoid double insert
             if (!((new Validate)->isCurrExRateInDb($exRateObj))) {
                 $db_oper->insertExRateDataToDb($exRateObj);
             }
@@ -69,15 +68,17 @@ class Controller {
     
         echo $ExRateTable;
     }
+
     // get all currencies
     public function getCurrencies(): array
     {
         $currencies = (new DbOperations)->getCurrencies();
         return $currencies;
     }
-    function validate($amount): ?string
+
+    function validateAmount($amount): ?string
     {
-        return (new Validate)->validateInput($amount);
+        return (new Validate)->validateAmount($amount);
     }
 }
 

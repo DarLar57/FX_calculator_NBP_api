@@ -19,7 +19,7 @@ require __DIR__ . '/../app/view/header.php';
 <?php foreach($currencies as $curr) { ?>
 
             <option value= "<?php echo htmlspecialchars(serialize($curr)); ?>">
-            <?= $curr['currency'] . " (" . $curr['currency_code']. ") - (" . $curr['mid_ex_rate']. ")"; ?>
+            <?= $curr['currency'] . " (" . $curr['currency_code']. ") - (" . $curr['mid_ex_rate']. ") - (" . $curr['effective_date']. ")"; ?>
             </option>
 
 <?php }; ?>
@@ -30,7 +30,7 @@ require __DIR__ . '/../app/view/header.php';
 <?php foreach($currencies as $curr) { ?>
 
             <option value= "<?php echo htmlspecialchars(serialize($curr)); ?>">
-            <?= $curr['currency'] . " (" . $curr['currency_code']. ") - (" . $curr['mid_ex_rate']. ")"; ?>
+            <?= $curr['currency'] . " (" . $curr['currency_code']. ") - (" . $curr['mid_ex_rate']. ") - (" . $curr['effective_date']. ")"; ?>
             </option>
 
 <?php }; ?>
