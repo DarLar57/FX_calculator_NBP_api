@@ -8,7 +8,7 @@ use PDOException;
 
 class DbOperations extends DB
 {
-    // insert ExchangeRatesTable obj. to db 'exchange_rates' table
+    // insert CurrencyExchangeRate obj. to db 'exchange_rates' table
     public function insertExRateDataToDb($exRateObj): void
     {
         try {
@@ -111,8 +111,8 @@ class DbOperations extends DB
         }
     }
 
-    // insert CurrencyConversion obj. to db 'currency_conversions' table
-    public function insertCurrConversionDataToDb($currConversionObj): void
+    // insert CurrencyExchange obj. to db 'currency_conversions' table
+    public function insertCurrExchangeDataToDb($currExchangeObj): void
     {
         try {
             $tableName = 'currency_conversions';
@@ -145,16 +145,16 @@ class DbOperations extends DB
             $stmt = parent::$dbConn->prepare($query);
         
             $stmt->execute([
-                'table_no' => $currConversionObj->getTableNo(),
-                'target_table_no' => $currConversionObj->getTargetTableNo(),
-                'effective_date' => $currConversionObj->getEffectiveDate(),
-                'currency' => $currConversionObj->getCurrency(),
-                'currency_code' => $currConversionObj->getCurrencyCode(),
-                'mid_ex_rate' => $currConversionObj->getMidExRate(),
-                'amount' => $currConversionObj->getAmount(),
-                'target_currency' => $currConversionObj->getTargetCurrency(),
-                'target_currency_code' => $currConversionObj->getTargetCurrencyCode(),
-                'target_amount' => $currConversionObj->getTargetAmount()
+                'table_no' => $currExchangeObj->getTableNo(),
+                'target_table_no' => $currExchangeObj->getTargetTableNo(),
+                'effective_date' => $currExchangeObj->getEffectiveDate(),
+                'currency' => $currExchangeObj->getCurrency(),
+                'currency_code' => $currExchangeObj->getCurrencyCode(),
+                'mid_ex_rate' => $currExchangeObj->getMidExRate(),
+                'amount' => $currExchangeObj->getAmount(),
+                'target_currency' => $currExchangeObj->getTargetCurrency(),
+                'target_currency_code' => $currExchangeObj->getTargetCurrencyCode(),
+                'target_amount' => $currExchangeObj->getTargetAmount()
             ]);
             // redirect to the site with all conversion results
             header('Location: conversion_result.php');
@@ -167,7 +167,7 @@ class DbOperations extends DB
     } 
 
     // read all data from db 'currency_conversions' table
-    public function readFXConversionDataFromDb(): array
+    public function readFXExchangeDataFromDb(): array
     {
         try {
             $tableName = 'currency_conversions';

@@ -3,7 +3,7 @@
 namespace App\Models\Functionality;
 use App\Models\Currency;
 
-class ExchangeRatesTable extends Currency
+class CurrencyExchangeRate extends Currency
 {
     public string $tableNo;  //table ref. for source curr.
     public string $effectiveDate; //table ref. for source curr.

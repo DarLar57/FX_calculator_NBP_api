@@ -5,7 +5,7 @@ use Exception;
 
 class NbpApi
 {
-    // get exchange rates tables (A and B) via NBP API and ultimately to create Obj. instances (ExchangeRatesTable class)
+    // get exchange rates tables (A and B) via NBP API and ultimately to create Obj. instances (CurrencyExchangeRate class)
     public function getExRateTableAandBFromApi(): array {
         try {
             $urlTableA = 'http://api.nbp.pl/api/exchangerates/tables/a';

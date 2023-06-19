@@ -3,17 +3,15 @@
 namespace App\View;
 
 use App\Models\DbOperations;
-use App\Models\Functionality\ExchangeRatesTable;
-use App\Models\Functionality\CurrencyConversion;
-use App\Models\NbpApi;
-use App\Controller\Controller;
+use App\Models\Functionality\CurrencyExchangeRate;
+use App\Models\Functionality\CurrencyExchange;
 
 class Components {
 
-    // create CurrencyConversion using relevant class objects
-    public static function createFXConversionTable($FXConversionDataFromDb): string
+    // create CurrencyExchange using relevant class objects
+    public static function createFXExchangeTable($FXExchangeDataFromDb): string
     {
-        $FXConversionTable = 
+        $FXExchangeTable = 
         '<div class="col-md-11 m-2 table-container">
             <input id="inputFilter" type="text" class="form-control mb-3" placeholder="Search for text in table">
         
@@ -36,29 +34,29 @@ class Components {
         </thead>
         <tbody id="table_report">';
 
-        foreach ($FXConversionDataFromDb as $singleFXConversionDataFromDb) {
+        foreach ($FXExchangeDataFromDb as $singleFXExchangeDataFromDb) {
                 
-            $FXConversionObj = new CurrencyConversion($singleFXConversionDataFromDb);
+            $FXExchangeObj = new CurrencyExchange($singleFXExchangeDataFromDb);
             
-            $FXConversionTable .= "<tr>
-                <td> {$FXConversionObj->getEffectiveDate()}</td>
-                <td> {$FXConversionObj->getCurrency()}</td>
-                <td> {$FXConversionObj->getCurrencyCode()}</td>
-                <td>" . number_format($FXConversionObj->getAmount(), 2, ',', ' ') . "</td>
-                <td> {$FXConversionObj->getTargetCurrency()}</td>
-                <td> {$FXConversionObj->getTargetCurrencyCode()}</td>
-                <td>" . number_format($FXConversionObj->getTargetAmount(), 2, ',', ' ') . "</td>
-                <td> {$FXConversionObj->getMidExRate()}</td>
-                <td> {$FXConversionObj->getTableNo()}</td>
-                <td> {$FXConversionObj->getTargetTableNo()}</td></tr>";
+            $FXExchangeTable .= "<tr>
+                <td> {$FXExchangeObj->getEffectiveDate()}</td>
+                <td> {$FXExchangeObj->getCurrency()}</td>
+                <td> {$FXExchangeObj->getCurrencyCode()}</td>
+                <td>" . number_format($FXExchangeObj->getAmount(), 2, ',', ' ') . "</td>
+                <td> {$FXExchangeObj->getTargetCurrency()}</td>
+                <td> {$FXExchangeObj->getTargetCurrencyCode()}</td>
+                <td>" . number_format($FXExchangeObj->getTargetAmount(), 2, ',', ' ') . "</td>
+                <td> {$FXExchangeObj->getMidExRate()}</td>
+                <td> {$FXExchangeObj->getTableNo()}</td>
+                <td> {$FXExchangeObj->getTargetTableNo()}</td></tr>";
         }
 
-        $FXConversionTable .= '</tbody></table></div>';
+        $FXExchangeTable .= '</tbody></table></div>';
 
-    return $FXConversionTable;
+    return $FXExchangeTable;
     }
 
-    // create ExchangeRatesTable reading from db and order inserting into db
+    // create CurrencyExchangeRate reading from db and order inserting into db
     public function createExRateTable($ExRateDataFromDb): string
     {
         $ExRateTable =
@@ -83,9 +81,9 @@ class Components {
     
             foreach ($ExRateDataFromDb as $singleExRateData) {
                 
-                //getting all the data from ExchangeRatesTable obj.
+                //getting all the data from CurrencyExchangeRate obj.
                 //to produce table content
-                $exRateObj = new ExchangeRatesTable($singleExRateData);
+                $exRateObj = new CurrencyExchangeRate($singleExRateData);
                 
                 $ExRateTable .= "<tr>
                     <td> {$exRateObj->getTableNo()}</td>
@@ -95,7 +93,7 @@ class Components {
                     <td> {$exRateObj->getMidExRate()}</td>
                     </tr>";
             }
-            
+
             $ExRateTable .= '</tbody></table>';
 
         return $ExRateTable;

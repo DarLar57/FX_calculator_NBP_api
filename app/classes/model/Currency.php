@@ -8,7 +8,7 @@ abstract class Currency
     public string $currencyCode;
 
     /* repeated variables in other 2 main classes 
-    (CurrencyConversion and CurrencyConversion) are not included although
+    (CurrencyExchange and CurrencyExchange) are not included although
     are currently reusable, bacause of future possibility to extend the project usability 
     for other tables (e.g. C etc.) and type of transactions */
 

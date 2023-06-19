@@ -3,15 +3,15 @@
 namespace App\Controller;
 
 use App\Models\DbOperations;
-use App\Models\Functionality\ExchangeRatesTable;
-use App\Models\Functionality\CurrencyConversion;
+use App\Models\Functionality\CurrencyExchangeRate;
+use App\Models\Functionality\CurrencyExchange;
 use App\Models\NbpApi;
 use App\Models\Validate;
 use App\View\Components;
 
 class Controller {
 
-    // getting data from NBPApi class, create ExchangeRatesTable obj.
+    // getting data from NBPApi class, create CurrencyExchangeRate obj.
     // and order inserting into db
     public function createExRateObjAndInsert(): void
     {
@@ -22,15 +22,15 @@ class Controller {
 
         foreach ($ExRateTableAandBFromApi as $singleExRateData) {
         
-        //create ExchangeRatesTable obj.
-        $exRateObj = new ExchangeRatesTable($singleExRateData);
+        //create CurrencyExchangeRate obj.
+        $exRateObj = new CurrencyExchangeRate($singleExRateData);
         $db_oper->insertExRateDataToDb($exRateObj);
         }
     }
 
-    // create ExchangeRatesTable using relevant class objects and
-    // reading from db CurrencyConversion
-    public function createCurrConversionObjAndInsert(): void
+    // create CurrencyExchangeRate using relevant class objects and
+    // reading from db CurrencyExchange
+    public function createCurrExchangeObjAndInsert(): void
     {
         $db_oper = new DbOperations;
 
@@ -46,7 +46,7 @@ class Controller {
         
         $targetAmount = $sourceAmount / $midExRate;
 
-        $currConversionData = [
+        $currExchangeData = [
             'table_no' => $sourceCurrencyArr['table_no'],
             'target_table_no' => $targetCurrencyArr['table_no'],
             'effective_date' => $sourceCurrencyArr['effective_date'],
@@ -59,26 +59,26 @@ class Controller {
             'target_amount' => $targetAmount
         ];
       
-        $currConversionObj = new CurrencyConversion($currConversionData);
+        $currExchangeObj = new CurrencyExchange($currExchangeData);
 
-        $db_oper->insertCurrConversionDataToDb($currConversionObj);
+        $db_oper->insertCurrExchangeDataToDb($currExchangeObj);
     }
 
-    // create CurrencyConversion using relevant classes objects and
-    // reading from db CurrencyConversion
-    public static function createFXConversionTable(): void
+    // create CurrencyExchange using relevant classes objects and
+    // reading from db CurrencyExchange
+    public static function createFXExchangeTable(): void
     {
         $db_oper = new DbOperations;
-        $FXConversionDataFromDb = $db_oper->readFXConversionDataFromDb();
+        $FXExchangeDataFromDb = $db_oper->readFXExchangeDataFromDb();
         
         $component = new Components();
-        $FXConversionTable = $component->createFXConversionTable($FXConversionDataFromDb);
+        $FXExchangeTable = $component->createFXExchangeTable($FXExchangeDataFromDb);
 
-        echo $FXConversionTable;
+        echo $FXExchangeTable;
     }
 
-    // create ExchangeRatesTable using relevant classes objects and
-    // reading from db CurrencyConversion
+    // create CurrencyExchangeRate using relevant classes objects and
+    // reading from db CurrencyExchange
     public static function createExRateTable(): void
     {
         $db_oper = new DbOperations;

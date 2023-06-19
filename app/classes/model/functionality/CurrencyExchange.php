@@ -3,7 +3,7 @@
 namespace App\Models\Functionality;
 use App\Models\Currency;
 
-class CurrencyConversion extends Currency
+class CurrencyExchange extends Currency
 {
     public string $tableNo; //table ref. for source curr.
     public string $targetTableNo; //table ref. for target curr.
