@@ -135,6 +135,7 @@ class DbOperations extends DB
         }
     }
 
+    // delete all NBP curr. ex. rates from db
     function deleteCurrExRateFromDb(): void 
     {
         try {

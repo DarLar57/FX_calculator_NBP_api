@@ -81,6 +81,7 @@ class Controller {
         return (new Validate)->validateAmount($amount);
     }
 
+    // request to delete all NBP curr. ex. rates from db
     function deleteCurrExRateFromDb(): void
     {
         $db_oper = new DbOperations;
