@@ -12,8 +12,8 @@ use App\View\Components;
 class Controller {
 
     // getting data from NBPApi class, create CurrencyExchangeRate obj.
-    // and order inserting into db
-    public function createExRateObjAndInsert(): void
+    // and order inserting into db createExRateObjAndInsert
+    public function createCurrExRateObjAndInsert(): void
     {
         $api = new NbpApi;
         $db_oper = new DbOperations;
@@ -30,7 +30,7 @@ class Controller {
 
     // create CurrencyExchangeRate using relevant class objects and
     // reading from db CurrencyExchange
-    public function createCurrExchangeObjAndInsert(): void
+    public function createCurrExObjAndInsert(): void
     {
         $db_oper = new DbOperations;
 
@@ -61,7 +61,7 @@ class Controller {
       
         $currExchangeObj = new CurrencyExchange($currExchangeData);
 
-        $db_oper->insertCurrExchangeDataToDb($currExchangeObj);
+        $db_oper->insertCurrExDataToDb($currExchangeObj);
     }
 
     // create CurrencyExchange using relevant classes objects and

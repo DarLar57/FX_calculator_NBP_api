@@ -98,12 +98,6 @@ class Components {
 
         return $ExRateTable;
     }
-
-    public function getCurrencies(): array
-    {
-        $currencies = (new DbOperations)->getCurrencies();
-        return $currencies;
-    }
 }
 
 

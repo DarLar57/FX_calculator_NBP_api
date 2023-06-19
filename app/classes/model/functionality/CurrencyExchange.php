@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Functionality;
+
 use App\Models\Currency;
 
 class CurrencyExchange extends Currency

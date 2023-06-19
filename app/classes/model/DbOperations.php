@@ -8,6 +8,10 @@ use PDOException;
 
 class DbOperations extends DB
 {
+    /********************************************************
+    / Operations on CurrencyExchangeRate (NBP Tables)
+    /********************************************************/
+    
     // insert CurrencyExchangeRate obj. to db 'exchange_rates' table
     public function insertExRateDataToDb($exRateObj): void
     {
@@ -111,8 +115,12 @@ class DbOperations extends DB
         }
     }
 
+    /********************************************************
+    / Operations on CurrencyExchange (Calculator/Transaction)
+    /********************************************************/
+    
     // insert CurrencyExchange obj. to db 'currency_conversions' table
-    public function insertCurrExchangeDataToDb($currExchangeObj): void
+    public function insertCurrExDataToDb($currExchangeObj): void
     {
         try {
             $tableName = 'currency_conversions';
