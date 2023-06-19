@@ -22,9 +22,14 @@ class Controller {
 
         foreach ($ExRateTableAandBFromApi as $singleExRateData) {
         
-        //create CurrencyExchangeRate obj.
-        $exRateObj = new CurrencyExchangeRate($singleExRateData);
-        $db_oper->insertExRateDataToDb($exRateObj);
+            //create CurrencyExchangeRate obj.
+            $exRateObj = new CurrencyExchangeRate($singleExRateData);
+        
+            //TEST
+
+            if (!((new Validate)->isCurrExRateInDb($exRateObj))) {
+                $db_oper->insertExRateDataToDb($exRateObj);
+            }
         }
     }
 

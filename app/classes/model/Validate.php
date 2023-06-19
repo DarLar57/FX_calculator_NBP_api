@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\DbOperations;
+
 class Validate
 {
     // on top of FE validation, BE checks if amount is empty or not a number
@@ -39,5 +41,16 @@ class Validate
             $display = $err;
         }
         return $display;
+    }
+    public function isCurrExRateInDb($exRateObj) 
+    {
+        $db_oper = new DbOperations;
+        $isExRateDataInDb = $db_oper->readSingleCurrExRateInDb($exRateObj);
+        
+        if ($isExRateDataInDb > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

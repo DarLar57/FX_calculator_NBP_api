@@ -192,4 +192,18 @@ class DbOperations extends DB
             throw $e;
         }
     }
+
+    public function readSingleCurrExRateInDb($exRateObj) 
+    {
+        $currencyCode = $exRateObj->getCurrencyCode();
+        $currencyTableNo = $exRateObj->getTableNo();
+        $sql = "SELECT * FROM exchange_rates WHERE currency_code='$currencyCode' and table_no ='$currencyTableNo'";
+
+        $stmt = parent::$dbConn->query($sql);
+        $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rowCount = $stmt->rowCount();
+        
+        return $rowCount;
+    }
 }
+
