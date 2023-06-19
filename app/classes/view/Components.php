@@ -11,7 +11,7 @@ use App\Controller\Controller;
 class Components {
 
     // create CurrencyConversion using relevant class objects
-    public static function createFXConversionTable($FXConversionDataFromDb)
+    public static function createFXConversionTable($FXConversionDataFromDb): string
     {
         $FXConversionTable = 
         '<div class="col-md-11 m-2 table-container">
@@ -52,13 +52,14 @@ class Components {
                 <td> {$FXConversionObj->getTableNo()}</td>
                 <td> {$FXConversionObj->getTargetTableNo()}</td></tr>";
         }
+
         $FXConversionTable .= '</tbody></table></div>';
 
     return $FXConversionTable;
     }
 
     // create ExchangeRatesTable reading from db and order inserting into db
-    public function createExRateTable($ExRateDataFromDb)
+    public function createExRateTable($ExRateDataFromDb): string
     {
         $ExRateTable =
             '<div class="col-md-12 table-container">
@@ -94,6 +95,7 @@ class Components {
                     <td> {$exRateObj->getMidExRate()}</td>
                     </tr>";
             }
+            
             $ExRateTable .= '</tbody></table>';
 
         return $ExRateTable;

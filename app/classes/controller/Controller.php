@@ -30,7 +30,7 @@ class Controller {
 
     // create ExchangeRatesTable using relevant class objects and
     // reading from db CurrencyConversion
-    public function createCurrConversionObjAndInsert()
+    public function createCurrConversionObjAndInsert(): void
     {
         $db_oper = new DbOperations;
 
@@ -66,7 +66,7 @@ class Controller {
 
     // create CurrencyConversion using relevant classes objects and
     // reading from db CurrencyConversion
-    public static function createFXConversionTable()
+    public static function createFXConversionTable(): void
     {
         $db_oper = new DbOperations;
         $FXConversionDataFromDb = $db_oper->readFXConversionDataFromDb();
@@ -79,7 +79,7 @@ class Controller {
 
     // create ExchangeRatesTable using relevant classes objects and
     // reading from db CurrencyConversion
-    public static function createExRateTable()
+    public static function createExRateTable(): void
     {
         $db_oper = new DbOperations;
         $ExRateDataFromDb = $db_oper->readExRateDataFromDb();

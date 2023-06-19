@@ -24,8 +24,10 @@ class DB
             die ('Connection with the database failed ! Check your credentials!');
         }
     }
+
     // get db credentials from ini file
-    private function getDbCredentials($file): array {
+    private function getDbCredentials($file): array
+    {
         if(file_exists($file)) {
             $configFile = parse_ini_file($file); 
         } else {

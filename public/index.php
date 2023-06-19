@@ -11,8 +11,8 @@ require __DIR__ . '/../app/view/header.php';
         <div class="col-md-3 me-4">
         <form class="row g-3 " id="formConvertFX" method="POST" action="<?php echo $_SERVER['PHP_SELF'];?>">
             <div class="mb-3">
-            <label class="form-label" for="amount" >Amount (source): <?= $errs; ?></label>
-            <input type="text" class="form-control" id="amount" name="amount" value="<?= $_POST['amount'] ?? ''; ?>" onchange="validateCurrencySelect()" oninput="validateCurrencySelect()" required pattern="^\d+(.\d{1,2})?$" >
+            <label class="form-label" id="labelAmount" for="amount" >Amount (source): <?= $errs; ?></label>
+            <input type="text" class="form-control is-invalid" id="amount" name="amount" value="<?= $_POST['amount'] ?? ''; ?>" onchange="validateAmount()" oninput="validateAmount()" required pattern="^\d+(.\d{1,2})?$" >
             <label id="labelSourceCurrency" for="sourceCurrency">Currency (source) & rate vs. PLN:</label>
             <select class="form-select" id="sourceCurrency" name="sourceCurrency"  onchange="validateCurrencySelect()" oninput="validateCurrencySelect()" required>
 
@@ -74,9 +74,6 @@ require __DIR__ . '/../app/view/footer.php';
 
 <?php
 
-if (isset($_POST['NBPRatesBtn'])) {
-    $controller->createExRateObjAndInsert();
-    header('Location: index.php');
-}
+
 
 ?>
