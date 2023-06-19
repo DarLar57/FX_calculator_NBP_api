@@ -34,32 +34,7 @@ class Controller {
     {
         $db_oper = new DbOperations;
 
-        $sourceCurrencyArr = unserialize($_POST['sourceCurrency']);
-        $sourceMidExRate = $sourceCurrencyArr['mid_ex_rate'];
-        $sourceAmount = $_POST['amount'];
-        $sourceAmount = str_replace(',', '.', $sourceAmount);
-        
-        $targetCurrencyArr = unserialize($_POST['targetCurrency']);
-        $targetMidExRate = $targetCurrencyArr['mid_ex_rate'];
-        
-        $midExRate = round(($targetMidExRate / $sourceMidExRate), 5);
-        
-        $targetAmount = $sourceAmount / $midExRate;
-
-        $currExchangeData = [
-            'table_no' => $sourceCurrencyArr['table_no'],
-            'target_table_no' => $targetCurrencyArr['table_no'],
-            'effective_date' => $sourceCurrencyArr['effective_date'],
-            'currency' => $sourceCurrencyArr['currency'],
-            'currency_code' => $sourceCurrencyArr['currency_code'],
-            'mid_ex_rate' => $midExRate,
-            'amount' => $sourceAmount,
-            'target_currency' => $targetCurrencyArr['currency'],
-            'target_currency_code' => $targetCurrencyArr['currency_code'],
-            'target_amount' => $targetAmount
-        ];
-      
-        $currExchangeObj = new CurrencyExchange($currExchangeData);
+        $currExchangeObj = new CurrencyExchange();
 
         $db_oper->insertCurrExDataToDb($currExchangeObj);
     }
