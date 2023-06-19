@@ -80,6 +80,12 @@ class Controller {
     {
         return (new Validate)->validateAmount($amount);
     }
+
+    function deleteCurrExRateFromDb(): void
+    {
+        $db_oper = new DbOperations;
+        $db_oper->deleteCurrExRateFromDb();
+    }
 }
 
 

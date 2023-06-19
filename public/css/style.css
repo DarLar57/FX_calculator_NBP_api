@@ -90,7 +90,7 @@ thead  td {
 #table_fx_converter tbody td {
     white-space: nowrap;
 }
-#NBPRatesBtn {
+#NBPRatesBtn, #NBPRatesBtnDel {
     margin: 32px 0;
 }
 #sticky {

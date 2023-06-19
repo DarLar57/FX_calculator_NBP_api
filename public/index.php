@@ -42,17 +42,21 @@ require __DIR__ . '/../app/view/header.php';
         </form>
 
             </div>
-            <div id="NBPRatesBtn">
-
-            </div>
         </div>
         <div row class="col-md-7">
             <div class="row">
-                
-        <form id="NBPRatesForm" method="POST">
-        <button class="btn btn-primary" id="NBPRatesBtn" name="NBPRatesBtn" for="NBPRatesForm" onclick="">Get NBP FX rates</button>
-        </form>
-
+                <div class="row">
+                    <div class="col-md-6">
+                    <form id="NBPRatesForm" method="POST">
+                        <button class="btn btn-primary" id="NBPRatesBtn" name="NBPRatesBtn" for="NBPRatesForm" onclick="">Get NBP FX rates</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form id="NBPRatesFormDel" method="POST">
+                         <button class="btn btn-danger" id="NBPRatesBtnDel" name="NBPRatesBtnDel" for="NBPRatesFormDel" onclick="">Delete NBP rates</button>
+                    </form>
+                </div>
+            </div>
         </div>
 <?php
 

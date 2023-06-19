@@ -19,3 +19,8 @@ if (isset($_POST['NBPRatesBtn'])) {
     $controller->createCurrExRateObjAndInsert();
     header('Location: index.php');
 }
+
+if (isset($_POST['NBPRatesBtnDel'])) {
+    $controller->deleteCurrExRateFromDb();
+    header('Location: index.php');
+}
