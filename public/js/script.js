@@ -56,7 +56,6 @@ function validateAmount() {
     }
   }
   
-
 // ev. listener to prevent form submit if curr. pair are the same
 $(document).ready(function() {
     $('#formConvertFX').submit(function(event) {
