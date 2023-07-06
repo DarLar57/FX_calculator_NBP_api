@@ -2,7 +2,6 @@
 
 namespace App\View;
 
-use App\Models\DbOperations;
 use App\Models\Functionality\CurrencyExchangeRate;
 use App\Models\Functionality\CurrencyExchange;
 

@@ -45,7 +45,7 @@ class Controller {
 
     // create CurrencyExchange using relevant classes objects and
     // reading from db CurrencyExchange
-    public static function createFXExchangeTable(): void
+    public function createFXExchangeTable(): void
     {
         $db_oper = new DbOperations;
         $FXExchangeDataFromDb = $db_oper->readFXExchangeDataFromDb();
@@ -58,7 +58,7 @@ class Controller {
 
     // create CurrencyExchangeRate using relevant classes objects and
     // reading from db CurrencyExchange
-    public static function createExRateTable(): void
+    public function createExRateTable(): void
     {
         $db_oper = new DbOperations;
         $ExRateDataFromDb = $db_oper->readExRateDataFromDb();

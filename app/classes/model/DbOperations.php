@@ -18,8 +18,8 @@ class DbOperations extends DB
         try {
             $tableName = 'exchange_rates';
     
-            $query = "INSERT INTO
-                $tableName (
+            $query = 
+                "INSERT INTO $tableName (
                     table_no,
                     effective_date,
                     currency,
@@ -32,7 +32,7 @@ class DbOperations extends DB
                         :currency,
                         :currency_code,
                         :mid_ex_rate
-                        )";
+                    )";
         
             $stmt = parent::$dbConn->prepare($query);
                     
@@ -77,14 +77,15 @@ class DbOperations extends DB
         try {
             $tableName = 'exchange_rates';
     
-            $query = "SELECT DISTINCT 
-                currency,
-                currency_code,
-                mid_ex_rate,
-                effective_date,
-                table_no
-                    FROM $tableName
-                        ORDER BY currency ASC";
+            $query = 
+                "SELECT DISTINCT 
+                    currency,
+                    currency_code,
+                    mid_ex_rate,
+                    effective_date,
+                    table_no
+                        FROM $tableName
+                            ORDER BY currency ASC";
     
             $stmt = parent::$dbConn->query($query);
     
@@ -121,7 +122,10 @@ class DbOperations extends DB
         try {
             $currencyCode = $exRateObj->getCurrencyCode();
             $currencyTableNo = $exRateObj->getTableNo();
-            $sql = "SELECT * FROM exchange_rates WHERE currency_code='$currencyCode' and table_no     ='$currencyTableNo'";
+            $sql = 
+                "SELECT * FROM exchange_rates
+                    WHERE 
+                        currency_code='$currencyCode' and table_no ='$currencyTableNo'";
         
             $stmt = parent::$dbConn->query($sql);
             $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -158,8 +162,8 @@ class DbOperations extends DB
         try {
             $tableName = 'currency_conversions';
         
-            $query = "INSERT INTO
-                $tableName (
+            $query = 
+                "INSERT INTO $tableName (
                     table_no,
                     target_table_no,
                     effective_date,
@@ -171,17 +175,17 @@ class DbOperations extends DB
                     target_currency_code,
                     target_amount
                     )
-                        VALUES (
-                            :table_no,
-                            :target_table_no,
-                            :effective_date,
-                            :currency,
-                            :currency_code,
-                            :mid_ex_rate,
-                            :amount,
-                            :target_currency,
-                            :target_currency_code,
-                            :target_amount)";
+                    VALUES (
+                        :table_no,
+                        :target_table_no,
+                        :effective_date,
+                        :currency,
+                        :currency_code,
+                        :mid_ex_rate,
+                        :amount,
+                        :target_currency,
+                        :target_currency_code,
+                        :target_amount)";
         
             $stmt = parent::$dbConn->prepare($query);
         
