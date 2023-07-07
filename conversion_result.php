@@ -6,8 +6,14 @@ require __DIR__ . '/app/view/header.php';
 ?>
 
     <div class="row justify-content-center m-1">
-      
-<?= $controller->createFXExchangeTable(); ?>
+
+<?php
+
+if (!empty($controller)) {
+    $controller->createFXExchangeTable();
+}
+
+?>
 
     </div>
 </div>
